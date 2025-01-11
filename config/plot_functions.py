@@ -7,22 +7,44 @@ import os
 def random_color():
     return np.random.rand(3,)
 
-def plot_raw_results(y_pred, y_test, req_test, target_feature, df_name):
+def plot_raw_results(y_pred, y_test, req_test, target_feature, df_name, filepath):
     color_actual_vs_requested = random_color()
     color_actual_vs_predicted = random_color()
+    color_predicted_vs_actual = random_color()
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(14, 10))
 
+    # Subplot 1: y_test vs req_test and y_pred
+    plt.subplot(2, 1, 1)
     plt.scatter(y_test, req_test, label='User Requested Values', color=color_actual_vs_requested, alpha=0.7)
     plt.scatter(y_test, y_pred, label='XGBoost Predicted Values', color=color_actual_vs_predicted, alpha=0.7, marker='x')
     plt.plot(y_test, y_test, label='Perfect Prediction Line', color='red', linestyle='--', alpha=1)
-
     plt.xlabel('Actual')
     plt.ylabel('Requested/Predicted')
     plt.title(f'Comparison of Requested and Predicted {target_feature} on {df_name}')
     plt.legend()
     plt.grid(True)
+
+    # Subplot 2: y_pred vs y_test
+    plt.subplot(2, 1, 2)
+    plt.plot(y_test, label='Actual', color='blue', alpha=0.7)
+    plt.plot(y_pred, label='Predicted', color='orange', alpha=0.7)
+    plt.xlabel('Job Index')
+    plt.ylabel('Value')
+    plt.title(f'Prediction Performance of {target_feature} on {df_name}')
+    plt.legend()
+    # Display grid
+    plt.grid(True)
+
+    # Adjust layout
+    plt.tight_layout()
+
+    plot_name = 'over_under_prediction_analysis.png'
+    file_path = os.path.join(filepath, plot_name)
+    plt.savefig(file_path)
+
     plt.show()
+
 
 def plot_kde_results(req_oe_ratio, pred_oe_ratio, target_feature, df_name):
 
