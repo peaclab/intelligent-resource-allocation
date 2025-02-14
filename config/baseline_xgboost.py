@@ -27,34 +27,17 @@ from tensorflow.keras.regularizers import l2
 from tensorflow.keras.optimizers import Adam
 
 
-def train_eagle_xgboost(df, df_name, target_feature, train_features, requested_feature, filepath, random_state=42):
+def train_eagle_xgboost(train_df, test_df, train_features, target_feature, filename):
     if target_feature not in df.columns:
         raise ValueError(f"Target feature '{target_feature}' not found in the DataFrame.")
 
-    df.loc[:, 'lagged_target'] = df[target_feature].shift(1)  # Currently shifting by 1
-    df = df.dropna()
-
-    features_with_lag = train_features + ['lagged_target']
-    X = df[features_with_lag]
-    y = df[target_feature]
-    requested_values = df[requested_feature]
-
-    if len(X) < 2:  # If there's only one sample or fewer, splitting is not possible
-        print(f"Warning: Not enough data in {df_name} to perform train-test split. Returning NaN for RMSE.")
-        return None, None, None, None, None, None
-
-    test_size = 0.2
-    X_train, X_test, y_train, y_test, req_train, req_test = train_test_split(
-        X, y, requested_values, test_size=test_size, random_state=random_state
-    )
-
-    mse1 = mean_squared_error(y_test, req_test)
-    rmse1 = np.sqrt(mse1)
-    mae1 = mean_absolute_error(y_test, req_test)
-    r21 = r2_score(y_test, req_test)
-    print(f"RMSE of user requested execution time: {rmse1}")
-    print(f"MAE of user requested execution time: {mae1}")
-    print(f"R^2 of user requested execution time: {r21}")
+    train_df = train_df.dropna()
+    test_df = test_df.dropna()
+    
+    X_train = train_df[train_features]
+    X_test = test_df[train_features]
+    y_train = train_df[target_feature]
+    y_test = test_df[target_feature]
 
     params = { 
         'n_estimators': 168,
@@ -69,16 +52,54 @@ def train_eagle_xgboost(df, df_name, target_feature, train_features, requested_f
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
-    # Some metrics for comparison
-    mse = mean_squared_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    mae = mean_absolute_error(y_test, y_pred)
+    pred_vs_act_df = pd.DataFrame(columns=['pred', 'act'])
+    pred_vs_act_df = pd.DataFrame({'pred': y_pred, 'act': y_test})
+
     r2 = r2_score(y_test, y_pred)
-    #plot_raw_results(y_pred, y_test, req_test, target_feature, df_name, filepath)
+    rmse = mean_squared_error(y_test, y_pred, squared=False)
 
-    # Overestimation factor
-    requested_over_target = req_test / y_test
-    predicted_over_target = y_pred / y_test
-    plot_kde_results(requested_over_target, predicted_over_target, target_feature, df_name, filepath)
+    print(f'r2: {r2:.3f}, rmse: {rmse:.0f}')
+     
+    pred_vs_act_df.to_pickle(filename)
 
-    return rmse, mae, r2, y_test, y_pred, req_test
+def test_eagle_xgboost(test_df, model, biases, bias, train_features, target_feature, user_req_feature, file_path):
+    
+    test_df = test_df.dropna()
+    X_test = test_df[train_features]
+    y_test = test_df[target_feature]
+
+    y_pred = model.predict(X_test)
+
+    if bias != 'none':
+        last_bias = biases[-1]
+        if bias == 'mean':
+            bias = last_bias['mean']
+        elif bias == 'mad':
+            bias = last_bias['mad']
+        elif bias == 'std_dev':
+            bias = last_bias['std_dev']
+        elif bias == 'two_sigma':
+            bias = last_bias['two_sigma']
+    else:
+        bias = 0.0       
+    
+    y_pred += bias
+
+    y_pred = np.array(y_pred).flatten()
+    y_test = np.array(y_test).flatten()
+
+    if user_req_feature is not None:
+        user_req = test_df[user_req_feature]
+        user_req = np.array(user_req).flatten()
+        pred_vs_act_df = pd.DataFrame(columns=['pred', 'act', 'req'])
+        pred_vs_act_df = pd.DataFrame({'pred': y_pred, 'act': y_test, 'req': user_req})
+    else:
+        pred_vs_act_df = pd.DataFrame(columns=['pred', 'act'])
+        pred_vs_act_df = pd.DataFrame({'pred': y_pred, 'act': y_test})
+
+    r2 = r2_score(y_test, y_pred)
+    rmse = mean_squared_error(y_test, y_pred, squared=False)
+
+    print(f'r2: {r2:.3f}, rmse: {rmse:.0f}')
+     
+    pred_vs_act_df.to_pickle(file_path)
