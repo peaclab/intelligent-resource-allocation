@@ -1,11 +1,17 @@
+#!/share/pkg.8/python3/3.12.4/install/bin/python3
+
 import pandas as pd
 import numpy as np
 import datetime
+import pickle
 import re
 from sklearn.preprocessing import LabelEncoder
 
-class BUPreprocessor:
-    def __init__(self, file_path='/projectnb/peaclab-mon/boztop/resource-allocation/datasets/bu_scc/bu.accounting.2023'):
+
+TRAINING_DATA = "/projectnb/peaclab-mon/boztop/module_files/data/accounting.2024"
+
+class LoadFilterData:
+    def __init__(self, file_path=TRAINING_DATA):
         self.file_path = file_path
         self.col_headers = ["qname", "hostname", "group", "owner", "job_name", "job_number", "account", "priority", 
              "submission_time", "start_time", "end_time", "failed", "exit_status", "ru_wallclock", 
@@ -13,9 +19,11 @@ class BUPreprocessor:
              "ru_minflt", "ru_majflt", "ru_nswap", "ru_inblock", "ru_oublock", "ru_msgsnd", 
              "ru_msgrcv", "ru_nsignals", "ru_nvcsw", "ru_nivcsw", "project", "department", "granted_pe", 
              "slots", "task_number", "cpu", "mem", "io", "category", "iow", "pe_taskid", "maxvmem", 
-             "arid", "ar_submission_time"]
-        self.train_features = ['group', 'owner', 'job_name', 'department', 'granted_pe','slots','h_rt']  
-        self.target_feature = 'execution_time'   
+             "arid", "ar_submission_time"] # make this shorter! use only needed!!
+        self.use_col_headers = ["group", "owner", "job_name",  "submission_time", "start_time", "end_time", "failed", "exit_status", "ru_wallclock", 
+             "ru_utime", "ru_stime", "ru_maxrss", "ru_isrss", "project", "granted_pe", 
+             "slots", "cpu", "mem", "io", "category"]     
+        self.train_features = ['group', 'owner', 'job_name',  'granted_pe','slots','h_rt']  
         self.df = None
 
     def load_and_filter_data(self):
@@ -81,6 +89,8 @@ class BUPreprocessor:
         label_encoders = {col: LabelEncoder() for col in categorical_features}
         for col in categorical_features:
             self.df[col] = label_encoders[col].fit_transform(self.df[col])
+        
+        self.label_encoders = label_encoders
 
     def preprocess_data(self):
         """
@@ -103,5 +113,10 @@ class BUPreprocessor:
         categorical_submission_features = ['group', 'owner', 'job_name', 'department', 'granted_pe']
         self.encode_categorical_features(categorical_submission_features)
         print("Encoding done!\n")
+
+        print("Saving label encoders...\n")
+        with open('/projectnb/peaclab-mon/boztop/module_files/models/label_encoders.pkl', 'wb') as f:
+            pickle.dump(self.label_encoders, f)
+        print("Label encoders saved!\n")
         
         return self.df

@@ -1,3 +1,5 @@
+#!/share/pkg.8/python3/3.12.4/install/bin/python3
+
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
