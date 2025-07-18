@@ -1,7 +1,6 @@
 # Job Grouping Based Intelligent Resource Prediction Framework
 
 ## Overview
-===========
 📖 This repository includes code for [Job Grouping Based Intelligent Resource Prediction Framework](https://www.bu.edu/peaclab/files/2025/06/JSSPP_2025_paper_19.pdf).
 
 This project provides a framework for intelligent resource prediction in HPC environments. By leveraging historical job data and machine learning techniques, it aims to improve resource allocation efficiency and job scheduling performance.
@@ -15,7 +14,6 @@ Maintainer & Developer: [Beste Oztop](https://github.com/beste-oztop)
 
 
 ## Abstract
-===========
 In High-Performance Computing (HPC) systems, users estimate the resources needed for job submissions based on their best knowledge. However, underestimating the required execution time, number of processors, or memory size can lead to early job terminations. Conversely, overestimating resource requests results in inefficiencies in job backfilling, wasted compute power, unused memory, and poor job scheduling, ultimately reducing overall system efficiency.
 
 As we enter the exascale era, efficient resource utilization is more critical than ever. Existing schedulers lack mechanisms to predict the resource requirements of batch jobs. To address this challenge, we design a data-driven recommendation framework that leverages historical job information to predict three key parameters for batch jobs: execution time, maximum memory size, and maximum number of CPU cores required.
@@ -23,7 +21,6 @@ As we enter the exascale era, efficient resource utilization is more critical th
 In contrast to existing machine learning (ML) based resource prediction methods, we introduce an online resource suggestion framework that considers both underestimates and overestimates in batch job resource provisioning. Our framework outperforms the baseline method with no grouping mechanism by achieving over 98% success in eliminating underpredictions and reducing the amount of overpredictions.
 
 ## Repository Structure
-===========
 The repository is organized as follows:
 
 ```
@@ -44,7 +41,6 @@ intelligent-resource-allocation/
 
 
 ## Citation
-===========
 If you use this code in your research, please cite the following paper:
 ```bibtex
 @inproceedings{oztop2025intelligent,
@@ -59,7 +55,6 @@ Copy and paste the above BibTeX entry to cite our work.
 
 
 ## Authors
-===========
 This code is part of the Job Grouping Based Intelligent Resource Prediction Framework developed by the PEACLab at Boston University in collaboration with Sandia National Laboratories. The authors of the paper are:
 Beste Oztop (1), Benjamin Schwaller (2), Vitus J. Leung (2), Jim Brandt (2), Brian Kulis (1), Manuel Egele (1), and Ayse K. Coskun (1)
 
