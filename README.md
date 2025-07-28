@@ -34,33 +34,33 @@ intelligent-resource-allocation/
 │   ├── m100_cineca.ipynb 
 │   ├── nrel_eagle.ipynb 
 ├── scripts/           
-│   ├── fugaku_data_preprocessing.py # Data preprocessing for Fugaku dataset
-│   ├── m100_data_preprocessing.py   # Data preprocessing for M100 dataset
-│   ├── nrel_eagle_data_preprocessing.py # Data preprocessing for Eagle dataset
-│   ├── ml_model_training.py          # Model training and evaluation functions
-│   ├── baseline_xgboost.py           # Baseline XGBoost model implementation
-│   ├── kmeans_clustering.py          # KMeans clustering for job grouping
-├── LICENSE              # License information
-└── README.md            # Project documentation (this file)
+│   ├── fugaku_data_preprocessing.py 
+│   ├── m100_data_preprocessing.py  
+│   ├── nrel_eagle_data_preprocessing.py 
+│   ├── ml_model_training.py      
+│   ├── baseline_xgboost.py      
+│   ├── kmeans_clustering.py  
+├── LICENSE  
+└── README.md   
 ```
 
-- **data/**: Directory for publicly available datasets included in this work
+💿 **data/**: Directory for publicly available datasets included in this work
     - **fugaku/**: Fugaku dataset from April 2024, source: [F-DATA](https://zenodo.org/records/11467483).
     - **m100/**: M100 dataset from April 2024, source: [M100 ExaData](https://www.nature.com/articles/s41597-023-02174-3#ref-CR17).
     - **nrel_eagle/**: Eagle dataset from Nov 2018 to Feb 2023, source: [NREL Eagle supercomputer jobs](https://data.openei.org/submissions/5860).
-- **notebooks/**: Jupyter notebooks for data preprocessing and model training.
+📒 **notebooks/**: Jupyter notebooks for data preprocessing and model training.
     - **fugaku.ipynb**: Jupyter notebook for Fugaku dataset analysis.
     - **m100_cineca.ipynb**: Jupyter notebook for M100 dataset analysis.
     - **nrel_eagle.ipynb**: Jupyter notebook for NREL Eagle dataset analysis.
-- **scripts/**: Python scripts for data preprocessing, model training, and evaluation.
+🎬 **scripts/**: Python scripts for data preprocessing, model training, and evaluation.
     - **fugaku_data_preprocessing.py**: Data preprocessing for Fugaku dataset.
     - **m100_data_preprocessing.py**: Data preprocessing for M100 dataset.
     - **nrel_eagle_data_preprocessing.py**: Data preprocessing for Eagle dataset.
     - **ml_model_training.py**: Functions for training and evaluating machine learning models.
     - **baseline_xgboost.py**: Implementation of the baseline XGBoost model.
     - **kmeans_clustering.py**: Functions for KMeans clustering to group jobs.
-- **LICENSE**: Project license.
-- **README.md**: Project overview and usage instructions.
+🪪 **LICENSE**: Project license.
+👓 **README.md**: Project overview and usage instructions.
 
 
 
