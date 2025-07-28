@@ -1,0 +1,5 @@
+# Ignore large files for now
+*.parquet
+*.bz2
+data/
+
