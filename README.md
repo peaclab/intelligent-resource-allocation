@@ -25,16 +25,28 @@ The repository is organized as follows:
 
 ```
 intelligent-resource-allocation/
-├── src/                 # Source code for the resource prediction framework
-│   ├── group.py         # Historical batch job data grouping logic
-│   ├── load.py          # Loading and preprocessing job data
-│   ├── rec.py           # Resource recommendation logic
-│   ├── train.py         # Model training and evaluation
+├── data/          # Directory for publicly available datasets included in this work
+│   ├── fugaku/    # Fugaku dataset from April 2024, source: [F-DATA](https://zenodo.org/records/11467483)
+│   ├── m100/      # M100 dataset from April 2024, source: [M100 ExaData](https://www.nature.com/articles/s41597-023-02174-3#ref-CR17)
+│   ├── nrel_eagle/ # Eagle dataset from Nov 2018 to Feb 2023, source: [NREL Eagle supercomputer jobs](https://data.openei.org/submissions/5860)
+├── notebooks/           # Jupyter notebooks for data preprocessing and model training
+│   ├── fugaku.ipynb     # Notebook for Fugaku dataset preprocessing and model training
+│   ├── m100_cineca.ipynb# Notebook for M100 dataset preprocessing and model training
+│   ├── nrel_eagle.ipynb # Notebook for Eagle dataset preprocessing and model training
+├── scripts/             # Python scripts for data preprocessing, model training, and evaluation
+│   ├── fugaku_data_preprocessing.py # Data preprocessing for Fugaku dataset
+│   ├── m100_data_preprocessing.py   # Data preprocessing for M100 dataset
+│   ├── nrel_eagle_data_preprocessing.py # Data preprocessing for Eagle dataset
+│   ├── ml_model_training.py          # Model training and evaluation functions
+│   ├── baseline_xgboost.py           # Baseline XGBoost model implementation
+│   ├── kmeans_clustering.py          # KMeans clustering for job grouping
 ├── LICENSE              # License information
 └── README.md            # Project documentation (this file)
 ```
 
-- **src/**: Main implementation, including model training, prediction, and evaluation.
+- **data/**: Contains datasets used in the project.
+- **notebooks/**: Jupyter notebooks for data preprocessing and model training.
+- **scripts/**: Python scripts for data preprocessing, model training, and evaluation.
 - **LICENSE**: Project license.
 - **README.md**: Project overview and usage instructions.
 
