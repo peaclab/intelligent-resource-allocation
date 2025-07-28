@@ -23,7 +23,7 @@ In contrast to existing machine learning (ML) based resource prediction methods,
 ## Repository Structure
 The repository is organized as follows:
 
-```
+```bash
 intelligent-resource-allocation/
 ├── data/          # Directory for publicly available datasets included in this work
 │   ├── fugaku/    # Fugaku dataset from April 2024, source: [F-DATA](https://zenodo.org/records/11467483)
