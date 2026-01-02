@@ -66,15 +66,26 @@ intelligent-resource-allocation/
 
 ## Citation
 If you use this code in your research, please cite the following paper:
-```bibtex
-@inproceedings{oztop2025intelligent,
-  title     = {Job Grouping Based Intelligent Resource Prediction Framework},
-  author    = {Oztop, Beste and Schwaller, Benjamin and Leung, Vitus J. and Brandt, Jim and Kulis, Brian and Egele, Manuel and Coskun, Ayse K.},
-  booktitle = {Workshop on Job Scheduling Strategies for Parallel Processing},
-  year      = {2025},
-  organization = {Springer}
-}
+
 ```
+Oztop, B. et al. (2026). Job Grouping Based Intelligent Resource Prediction Framework. In: Klusáček, D., Corbalán, J., Rodrigo, G.P. (eds) Job Scheduling Strategies for Parallel Processing. JSSPP 2025. Lecture Notes in Computer Science, vol 16210. Springer, Cham. https://doi.org/10.1007/978-3-032-10507-3_2
+```
+
+```bibtex
+@InProceedings{10.1007/978-3-032-10507-3_2,
+    author="Oztop, Beste and Schwaller, Benjamin and Leung, Vitus J. and Brandt, Jim and Kulis, Brian and Egele, Manuel and Coskun, Ayse K.",
+    editor="Klusáček, Dalibor
+    and Corbalán, Julita
+    and Rodrigo, Gonzalo P.",
+    title="Job Grouping Based Intelligent Resource Prediction Framework",
+    booktitle="Job Scheduling Strategies for Parallel Processing",
+    year="2026",
+    publisher="Springer Nature Switzerland",
+    address="Cham",
+    pages="21--40",
+    }
+```
+
 Copy and paste the above BibTeX entry to cite our work.
 
 
